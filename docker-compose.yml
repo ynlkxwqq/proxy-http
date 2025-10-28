@@ -1,0 +1,22 @@
+# services:
+#   app:
+#     image: simple-http-proxy
+#     container_name: simple-http-proxy
+#     build: 
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - "3000:3000" 
+#     env_file:
+#       - .env
+
+
+
+version: "3.9"
+
+services:
+  proxy:
+    build: .
+    ports:
+      - "3333:3333"
+
