@@ -113,4 +113,4 @@ uuid – Unique request IDs
 MIT License
 
 
-Вот мой прокси-сервер: https://proxy-http-last.onrender.com или https://proxy-http-last.onrender.com/proxy
+This is my proxy-server: https://proxy-http-last.onrender.com or https://proxy-http-last.onrender.com/proxy
