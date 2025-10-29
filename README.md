@@ -11,6 +11,8 @@ Returns proxied response status, headers, and body length in JSON.
 Stores requests and responses in memory with unique IDs.
 Built-in Swagger API documentation.
 
+---
+
 ### Getting Started
 1. Prerequisites
 Docker & Docker Compose
@@ -26,11 +28,17 @@ make up
 [Docker & Docker Compose
 Go 1.22+ (for local development)](http://localhost:3333/swagger/index.html)
 
+---
+
 ### Stopping the Server
 make down
 
+---
+
 ### Viewing Logs
 make logs
+
+---
 
 ### Project Structure
 main.go: Entry point for the application. Starts the HTTP server.
@@ -43,6 +51,7 @@ main.go: Entry point for the application. Starts the HTTP server.
 /internal/service: Implements core application functionality.
 /pkg: Reusable packages for external use.
 
+---
 
 ### Usage Example
 Send a POST request to /proxy:
@@ -70,6 +79,7 @@ Response:
 }
 
 
+---
 
 ### Docker
 Dockerfile:
@@ -101,6 +111,7 @@ services:
     ports:
       - "3333:3333"
 
+---
 
 ### Dependencies
 chi – HTTP router
@@ -108,6 +119,7 @@ zerolog – Fast structured logging
 Swagger – API documentation
 uuid – Unique request IDs
 
+---
 
 ### License
 MIT License
