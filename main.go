@@ -1,11 +1,3 @@
-// package main
-
-// import "simple-http-proxy/internal/app"
-
-// func main() {
-// 	app.Run()
-// }
-
 package main
 
 import (
@@ -14,13 +6,13 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"sync"
 	"time"
 
 	"github.com/google/uuid"
 )
 
-// Структуры для входящего запроса и ответа
 type ProxyRequest struct {
 	Method  string            `json:"method"`
 	URL     string            `json:"url"`
@@ -34,7 +26,6 @@ type ProxyResponse struct {
 	Length  int               `json:"length"`
 }
 
-// Хранилище запросов и ответов
 var storage sync.Map
 
 func proxyHandler(w http.ResponseWriter, r *http.Request) {
@@ -54,7 +45,6 @@ func proxyHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Формируем новый HTTP-запрос к стороннему сервису
 	clientReq, err := http.NewRequest(req.Method, req.URL, nil)
 	if err != nil {
 		http.Error(w, "Invalid request", http.StatusBadRequest)
@@ -87,7 +77,6 @@ func proxyHandler(w http.ResponseWriter, r *http.Request) {
 		Length:  len(body),
 	}
 
-	// Сохраняем запрос и ответ
 	storage.Store(id, map[string]interface{}{
 		"request":  req,
 		"response": proxyResp,
@@ -98,7 +87,13 @@ func proxyHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3333"
+	}
+
 	http.HandleFunc("/proxy", proxyHandler)
-	fmt.Println("Server listening on :3333")
-	log.Fatal(http.ListenAndServe(":3333", nil))
+
+	fmt.Println("Server listening on :" + port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
